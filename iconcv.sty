@@ -1,0 +1,478 @@
+% TEMPLATE FOR CURRICULUM VITÆ
+% V3.0
+% Ruggero Fabbiano
+% 20/11/2020
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NeedsTeXFormat{LaTeX2e}[2020/10/01]
+\ProvidesPackage{iconcv}[2020/20/11 Icon-CV package]
+
+% PACKAGES
+\RequirePackage[top=1cm, left=0pt, right=0pt, bottom=1cm, noheadfoot]{geometry}
+\RequirePackage[dvipsnames]{xcolor}
+\RequirePackage{mdframed, tabularx, ifthen, fontawesome, graphicx, paracol,
+	changepage, calc, xparse, mathabx, enumitem, mnsymbol, pbox}
+\RequirePackage[ocgcolorlinks, colorlinks, urlcolor=linkColour]{hyperref}
+\RequirePackage[many]{tcolorbox}
+
+% SETTINGS
+\usetikzlibrary{calc}
+\def\imageFolder{IconCV}\graphicspath{{\imageFolder/}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% PAGE LAYOUT
+
+\mdfsetup{linewidth=0, innertopmargin=0pt, innerleftmargin=1cm,
+	innerrightmargin=1cm, innerbottommargin=1em, backgroundcolor=headerColour}
+\columnratio{0.75}
+\setlength{\parindent}{0pt}
+\setlength\tabcolsep{0pt}
+\pagestyle{empty}
+\setlist[itemize]{nolistsep}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% COLOURS
+% pink, white, yellow; Apricot, Aquamarine, Bittersweet
+\colorlet{headerColour}{pink}
+\colorlet{nameColour}{white}
+\colorlet{linkColour}{Bittersweet}
+\colorlet{titleColour}{black}
+\colorlet{ruleColour}{pink}
+\colorlet{timeLineColour}{gray}
+\colorlet{jobColour}{Aquamarine}
+\colorlet{skillColour}{Apricot}
+\colorlet{languageColour}{Apricot}
+
+% PALETTES
+\DeclareOption{blackwhite}{
+	\colorlet{headerColour}{white}
+	\colorlet{nameColour}{black}
+	\colorlet{linkColour}{blue}
+	\colorlet{titleColour}{black}
+	\colorlet{ruleColour}{black}
+	\colorlet{timeLineColour}{black}
+	\colorlet{jobColour}{black}
+	\colorlet{skillColour}{black}
+	\colorlet{languageColour}{black}
+}
+\DeclareOption{greyscale}{
+	\colorlet{headerColour}{lightgray}
+	\colorlet{nameColour}{black}
+	\colorlet{linkColour}{darkgray}
+	\colorlet{titleColour}{black}
+	\colorlet{ruleColour}{gray}
+	\colorlet{timeLineColour}{gray}
+	\colorlet{jobColour}{darkgray}
+	\colorlet{skillColour}{gray}
+	\colorlet{languageColour}{gray}
+}
+\DeclareOption{Srapi}{
+	\colorlet{headerColour}{white}
+	\colorlet{nameColour}{black}
+	\colorlet{linkColour}{blue}
+	\colorlet{titleColour}{brown}
+	\colorlet{ruleColour}{brown}
+	\colorlet{timeLineColour}{black}
+	\colorlet{jobColour}{black}
+	\colorlet{skillColour}{black}
+	\colorlet{languageColour}{black}
+}
+\DeclareOption{demo}{
+	\colorlet{headerColour}{blue}
+	\colorlet{nameColour}{brown}
+	\colorlet{linkColour}{cyan}
+	\colorlet{titleColour}{gray}
+	\colorlet{ruleColour}{green}
+	\colorlet{timeLineColour}{lime}
+	\colorlet{jobColour}{magenta}
+	\colorlet{skillColour}{olive}
+	\colorlet{languageColour}{orange}
+}
+\ProcessOptions\relax
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% TITLES
+
+\def\Experiences{Work Experience}
+\def\Education{Education}
+\def\Skills{Skills}
+\def\Languages{Languages}
+\def\Courses{Courses and Certifications}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% SYMBOLS
+
+\def\jobSep{$\bigstar$}
+\def\labelitemi{\small$\bigvarstar$}
+\def\diplomaSep{$\bigstar$}
+\def\OK{\raisebox{-1pt}{\LARGE$\filledstar$}}
+\def\NOK{\raisebox{-1pt}{\LARGE$\smallstar$}}
+%\def\courseSep{$\bigstar$}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% INPUT
+
+% Personal information
+
+\def\name#1#2{\def\@name{\textcolor{nameColour}{\LARGE\textbf{#1 \textsc{#2}}}}}
+
+\def\titles#1{\def\@titles{\textit{\textcolor{nameColour}{\small\bfseries#1}}}}
+
+\def\qualification#1{
+	\def\@qualification{\textcolor{nameColour}{\small\bfseries#1}}
+	\stepcounter{qual}
+}
+
+\def\address#1#2{
+	\def\@address{%
+		\@typeInfo{\faHome}{%
+			\@checkForImage{#2}
+				{#1\hspace{1ex}\includegraphics[height=1ex]{#2}}
+				{#1 (\MakeUppercase{#2})}%
+		}%
+	}\stepcounter{infoL}
+	\let\@thirdL\@secondL\let\@secondL\@firstL\def\@firstL{\@address}
+}
+
+\newcommand\nationality[2][\faFlag]{
+	\def\@nationality{%
+		\@checkForImage{#1}
+			{\@typeInfo{\includegraphics[height=1ex]{#1}}{#2}}
+			{\@typeInfo{#1}{#2}}
+	}\stepcounter{infoL}
+	\let\@thirdL\@secondL
+	\ifdefined\@address\def\@secondL{\@nationality}
+	\else\let\@secondL\@firstL\def\@firstL{\@nationality}
+	\fi
+}
+
+\def\license#1{
+	\def\@license{\@typeInfo{\faCar}{#1}}
+	\stepcounter{infoL}
+	\ifx\@firstL\undefined\def\@firstL{\@license}
+	\else
+		\ifx\@secondL\undefined\def\@secondL{\@license}
+		\else\def\@thirdL{\@license}
+		\fi
+	\fi
+}
+
+\def\phone#1{
+	\def\@phone{\@typeInfo{\faMobile}{#1}}
+	\stepcounter{infoR}\stepcounter{beforeLinkedIn}
+	\let\@fourthR\@thirdR\let\@thirdR\@secondR\let\@secondR\@firstR
+	\def\@firstR{\@phone}
+}
+
+\def\eMail#1{
+	\def\@eMail{\@typeInfo{\faEnvelope}{\href{mailto:#1}{#1}}}
+	\stepcounter{infoR}\stepcounter{beforeLinkedIn}
+	\let\@fourthR\@thirdR\let\@thirdR\@secondR
+	\ifdefined\@phone\def\@secondR{\@eMail}
+	\else\let\@secondR\@firstR\def\@firstR{\@eMail}
+	\fi
+}
+
+\def\LinkedIn#1{
+	\def\@LinkedIn{%
+		\@typeInfo{\faLinkedin}{\href{https://www.linkedin.com/in/#1}{#1}}%
+	}\stepcounter{infoR}
+	\let\@fourthR\@thirdR
+	\ifthenelse{\value{beforeLinkedIn}=2}
+		{\def\@thirdR{\@LinkedIn}}
+		{\let\@thirdR\@secondR
+			\ifthenelse{\value{beforeLinkedIn}=1}
+				{\def\@secondR{\@LinkedIn}}
+				{\let\@secondR\@firstR\def\@firstR{\@LinkedIn}}
+		}
+}
+
+\def\GitHub#1{
+	\def\@GitHub{\@typeInfo{\faGithub}{\href{https://github.com/#1}{#1}}}
+	\stepcounter{infoR}
+	\ifx\@firstR\undefined\def\@firstR{\@GitHub}
+	\else
+		\ifx\@secondR\undefined\def\@secondR{\@GitHub}
+		\else
+			\ifx\@thirdR\undefined\def\@thirdR{\@GitHub}
+			\else\def\@fourthR{\@GitHub}
+			\fi
+		\fi
+	\fi
+}
+
+% Work experience
+
+\def\experience#1#2#3#4#5#6{
+  \append{company}{{#1}} \append{place}{{#2}} \append{country}{{#3}}
+	\append{role}{{#4}} \append{domain}{{#5}} \append{time}{{#6}}
+}
+\def\resume#1{
+	\stepcounter{jobResume}
+	\expandafter\def\csname resume\Roman{jobResume}\endcsname{#1}
+}
+
+% Education
+
+\def\diploma#1#2#3#4#5{%
+	\expandafter\def\expandafter\@printDegrees\expandafter{%
+		\@printDegrees \textcolor{jobColour}{#1}\hspace{1em} & #2 & \diplomaSep
+		&
+		#3\@checkForImage{#4}{\hspace{1em}\includegraphics[height=1.5ex]{#4}}{ (#4)}
+		& \diplomaSep & #5\\
+	}
+}
+
+% Skills
+\newcommand\skill[4][]{
+	\append{SGroup}{{#2}}
+	\append{SName}{{%
+		\pbox{\linewidth}{\includegraphics[height=1.5ex]{#1}}%
+		\hspace{1.5em-\widthof{\includegraphics[height=1.5ex]{#1}}}%
+		\pbox{\linewidth}{#3}%
+	}}
+	\append{SLevel}{{\@printLevel{#4}}}
+}
+
+\newcommand\newLanguage[4][100]{ % se scelta 2 togliere [1ex] da \\ sopra!
+  \@inLanguages{%
+		\pbox{\linewidth}{%
+%    	\@checkForImage{#3}{\includegraphics[height=2ex]{#3}}{#2} % scelta 1
+			#2 % scelta 2
+		}\hfill
+		\pbox{\linewidth}{%
+    	\begin{tikzpicture}
+%				\fill[languageColour] (0, 0) rectangle (1.5*#4/#1, 0.25); % scelta 1
+				\@checkForImage{#3} % scelta 2
+					{\fill[languageColour!50] (0, 0) rectangle (1.5, 0.25); % scelta 2
+						\node[inner sep = 0, outer sep = 0, anchor = south west] % scelta 2
+							{\resizebox{1.5cm*#4/#1}{0.25cm} % scelta 2
+								{\includegraphics[height=2ex]{#3}}};} % scelta 2
+      		{\fill[languageColour] (0, 0) rectangle (1.5*#4/#1, 0.25);} % scelta 2
+      	\draw[languageColour] (0, 0) rectangle (1.5, 0.25);
+    	\end{tikzpicture}
+		}%
+  }
+}
+
+\newcommand{\course}[3][]{
+	\append{CTitle}{{#2}}
+	\append{CProvider}
+		{{\ifx#1\undefined#1\else\includegraphics[height=1.5ex]{#1}\hspace{1ex}\fi}}
+	\append{CInstitute}
+		{{\@checkForImage{#3}{\includegraphics[height=1.5ex]{#3}}{#3}}}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% INTERNAL COMMANDS
+
+\newcounter{qual}
+\newcounter{infoL}
+\newcounter{infoR}
+\newcounter{beforeLinkedIn}
+\newcounter{iNode}
+\newcounter{freezePage}
+\newcounter{jobResume}
+\newcounter{skillLevel}
+
+\def\@checkForImage#1#2#3{%
+	\IfFileExists{\imageFolder/#1.jpeg}{#2}{%
+		\IfFileExists{\imageFolder/#1.jpg}{#2}{%
+			\IfFileExists{\imageFolder/#1.png}{#2}{%
+				\IfFileExists{\imageFolder/#1.pdf}{#2}{#3}
+			}
+		}
+	}%
+}
+
+\def\@typeInfo#1#2{\parbox[b]{1.5em}{\centering#1}\hspace{1ex}#2}
+
+\def\@titleise#1#2{%
+  \vspace{1em}
+	\hspace*{-1em}
+	\begin{minipage}[t]{2em}
+		{\Large\bfseries\phantom{X}}\\[-\baselineskip]
+	  {\color{titleColour}\Large#1}
+	\end{minipage}
+	\begin{minipage}[t]{\linewidth-1em}
+	  {\Large\bfseries\phantom{X}}\\[-\baselineskip+3pt]
+	  {\color{ruleColour}\rule{\linewidth}{1.5pt}}\\[-\baselineskip-3pt]
+	  {\color{titleColour}\Large\bfseries#2}
+	\end{minipage}
+}
+
+\def\@bulletPos{($(frame.north west)-(0, 0.75em)$)}
+\def\@timeLine{
+  \ifthenelse{\value{iNode}=0 \OR \value{page}>\value{freezePage}}
+    {\draw[timeLineColour] \@bulletPos -- (frame.south west);}
+    {\pgfmathtruncatemacro{\i}{\value{iNode}-1}
+      \draw[timeLineColour] ($(node\i)+(0, 1ex)$) -- (frame.south west);
+    }
+}
+\def\@setEndPoint{
+  \pgfmathtruncatemacro{\i}{\value{iNode}}
+  \node[outer sep = 0, inner sep = 0] (node\i) at (frame.south west) {};
+  \stepcounter{iNode}
+}
+
+\newtcolorbox{experienceBox}{
+  breakable, boxrule=0pt, arc=0pt, colback=white, top=0pt, left=0pt, right=0pt,
+  bottom=0pt, remember, enhanced,
+  overlay unbroken = {
+    \filldraw[timeLineColour] \@bulletPos circle (1.5pt);
+    \@timeLine\@setEndPoint\setcounter{freezePage}{\value{page}}
+  }, overlay first = {
+    \filldraw[timeLineColour] \@bulletPos circle (1.5pt);
+    \@timeLine
+  }, overlay middle = {
+    \draw[timeLineColour] (frame.north west) -- (frame.south west);
+  }, overlay last = {
+    \draw[timeLineColour] (frame.north west) -- (frame.south west);
+    \@setEndPoint\setcounter{freezePage}{\value{page}}
+  }, extrude left by = 1ex
+} % enlarge left by=2em,
+
+\ExplSyntaxOn
+  \NewDocumentCommand{\append}{mm}{\bcp_append:nn{#1}{#2}}
+  \NewExpandableDocumentCommand{\getLength}{m}{\seq_count:c{l_bcp_data_#1_seq}}
+  \NewExpandableDocumentCommand{\getElement}{O{1}m}{\bcp_getElement:nn{#1}{#2}}
+
+  \cs_new_protected:Npn \bcp_append:nn #1 #2 {
+    \seq_if_exist:cF {l_bcp_data_#1_seq}
+    {\seq_new:c {l_bcp_data_#1_seq}}
+    \__bcp_append:nn {#1}{#2}
+  }
+  \cs_new_protected:Npn \__bcp_append:nn #1 #2 {
+    \tl_map_inline:nn {#2}{\seq_put_right:cn {l_bcp_data_#1_seq}{##1}}
+  }
+  \cs_new:Npn \bcp_getElement:nn #1 #2 {\seq_item:cn {l_bcp_data_#2_seq}{#1}}
+\ExplSyntaxOff
+
+\def\@jobSep{\hfill\jobSep\hfill}
+\def\@printResume#1{\csname resume#1\endcsname}
+\def\@printDegrees{}
+
+\ExplSyntaxOn
+ 	\NewDocumentCommand{\@inLanguages}{m}{\seq_gput_right:Nn \g_language{#1}}
+ 	\NewDocumentCommand{\@languages}{}{\seq_use:Nnnn \g_language{\\[1ex]}{\\[1ex]}{\\[1ex]}}
+ 	\seq_new:N \g_language
+\ExplSyntaxOff
+
+\def\@printLevel#1{%
+	\setcounter{skillLevel}{0}%
+	\color{skillColour}
+	\loop\ifnum\value{skillLevel}<5\relax
+		\ifnum\value{skillLevel}<#1\OK%
+		\else\ifnum\value{skillLevel}<6\NOK\fi%
+		\fi
+		\stepcounter{skillLevel}%
+	\repeat
+}
+
+%\def\@courseSep{\hspace{2em}\courseSep\hspace{2em}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% PAGE BUILD
+
+\newcommand\makeCV{
+
+	\ifx\@firstL\undefined\def\@firstL{}\fi
+	\ifx\@firstR\undefined\def\@firstR{}\fi
+	\ifx\@secondL\undefined\def\@secondL{}\fi
+	\ifx\@secondR\undefined\def\@secondR{}\fi
+	\ifthenelse{\value{qual}>0 \OR \value{infoL}>2 \OR \value{infoR}>2}
+		{\stepcounter{qual}
+			\ifx\@qualification\undefined\def\@qualification{}\fi
+			\ifx\@thirdL\undefined\def\@thirdL{}\fi
+			\ifx\@thirdR\undefined\def\@thirdR{}\fi}
+
+	\begin{document}
+		\begin{tikzpicture}[remember picture, overlay]
+			\node[fill=headerColour, minimum width = \paperwidth, minimum height = 1cm,
+				outer sep = 0, anchor=north] at (current page.north) {};
+		\end{tikzpicture}
+		\vspace{-18pt}
+		\begin{mdframed}
+			\ifthenelse{\value{infoR}=4}
+				{\begin{tabularx}{\textwidth}{l X|X l c l}
+					\@name					&	&	&	\@firstL	&	\hspace{2cm}	& \@firstR\\
+					\@titles				&	&	&	\@secondL	&								&	\@secondR\\
+					\@qualification	&	&	&	\@thirdL	&								& \@thirdR\\
+													&	&	&						&								&	\@fourthR
+				\end{tabularx}}
+				{\ifthenelse{\value{qual}>0}
+					{\begin{tabularx}{\textwidth}{l X|X l c l}
+						\@name					&	&	&	\@firstL	&	\hspace{2cm}	& \@firstR\\
+						\@titles				&	&	&	\@secondL	&								&	\@secondR\\
+						\@qualification	&	&	&	\@thirdL	&								& \@thirdR
+					\end{tabularx}}
+					{\begin{tabularx}{\textwidth}{l X|X l c l}
+						\@name		&	&	&	\@firstL	&	\hspace{2cm}	& \@firstR\\
+						\@titles	&	&	&	\@secondL	&								&	\@secondR
+					\end{tabularx}}
+				}
+		\end{mdframed}
+		\begin{paracol}{2}
+			\begin{leftcolumn}
+				\begin{adjustwidth}{1cm}{0.5cm}%
+					\@titleise{\faBlackTie}{\Experiences}
+					\foreach \i in {\getLength{place}, ..., 1}{
+						\begin{experienceBox}
+							\ifthenelse{
+								\equal{\getElement[\i]{company}}{\getElement[\i+1]{company}}
+							}
+							{}
+							{\@checkForImage{\getElement[\i]{company}}
+									{\includegraphics[height=1.5ex]{\getElement[\i]{company}}}
+									{\textbf{\getElement[\i]{company}}}%
+								\hfill\getElement[\i]{place}\hspace{1ex}%
+								\@checkForImage{\getElement[\i]{country}}%
+									{\includegraphics[height=1.5ex]{\getElement[\i]{country}}}%
+									{\getElement[\i]{country}}%
+								\\}
+							{\color{jobColour}\getElement[\i]{role}\@jobSep
+								\getElement[\i]{domain}\@jobSep\getElement[\i]{time}}
+							\setcounter{jobResume}{\i}\@printResume{\Roman{jobResume}}
+						\end{experienceBox}
+					}\vspace{1em}
+					\@titleise{\faBank}{\Education}\\[1em]
+					\begin{tabularx}{\linewidth}{l l Y l Y l}
+						\@printDegrees
+					\end{tabularx}
+				\end{adjustwidth}%
+			\end{leftcolumn}
+			\begin{rightcolumn}
+				\begin{adjustwidth}{0.5cm}{1cm}
+					\@titleise{\faAsterisk}{\Skills}\\[1em]
+					\foreach \i in {1, ..., \getLength{SName}}{%
+						\ifthenelse{%
+							\equal{\getElement[\i]{SGroup}}{\getElement[\i-1]{SGroup}}\OR
+							\equal{\getElement[\i]{SGroup}}{}
+						}{}{\\\textbf{\getElement[\i]{SGroup}}\\}%
+						\getElement[\i]{SName}\hfill\getElement[\i]{SLevel}\\}
+					\\[1em]
+					\@titleise{\faComment}{\Languages}\\[1em]
+					\@languages
+				\end{adjustwidth}
+			\end{rightcolumn}
+		\end{paracol}
+		\begin{mdframed}[backgroundcolor=white]
+			\@titleise{\faBook}{\Courses}\\[1em]
+			\foreach \i in {1, 3, ..., \getLength{CTitle}}{%
+				\parbox{0.49\linewidth}{\getElement[\i]{CTitle}\hspace{1em}
+					\getElement[\i]{CProvider}\getElement[\i]{CInstitute}}\hfill%
+				\parbox{0.49\linewidth}{\getElement[\i+1]{CTitle}\hspace{1em}
+					\getElement[\i+1]{CProvider}\getElement[\i+1]{CInstitute}}\\
+			}
+		\end{mdframed}
+	\end{document}
+}

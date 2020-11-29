@@ -1,0 +1,218 @@
+% !TEX encoding = UTF-8 Unicode
+
+% Ruggero Fabbiano
+% Content template for IconCV package
+% 20/11/2020
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% PACKAGES
+
+\documentclass[a4paper]{article}
+\usepackage[demo]{logocv}
+
+% Font and other custom packages
+\usepackage[sfdefault]{arimo}
+\usepackage[T1]{fontenc}
+\usepackage{scrextend}
+\changefontsizes{9}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% CUSTOM (RE)DEFINITIONS
+
+% Set image folder
+%\renewcommand\imageFolder{LogoCV}
+
+% Adapt column width (the argument is the width percentage taken by left column)
+%\columnratio{0.75}
+
+% Colours (DVI PS names directly available)
+%\colorlet{headerColour}{pink}
+%\colorlet{nameColour}{white}
+%\colorlet{linkColour}{Bittersweet}
+%\colorlet{titleColour}{black}
+%\colorlet{ruleColour}{pink}
+%\colorlet{timeLineColour}{gray}
+%\colorlet{jobColour}{Aquamarine}
+%\colorlet{skillColour}{Apricot}
+%\colorlet{languageColour}{Apricot}
+
+% Titles
+%\renewcommand{\Experiences}{Work Experience}
+%\renewcommand{\Education}{Education}
+%\renewcommand{\Skills}{Skills}
+%\renewcommand{\Languages}{Languages}
+%\renewcommand{\Courses}{Courses and Certifications}
+
+% Bullets (MathABX/FontAwesome symbols available)
+%\renewcommand{\jobSep}{} % default: $\bigstar$
+%\renewcommand{\diplomaSep}{$\bigstar$}
+%\renewcommand{\courseSep}{$\bigstar$}
+%\renewcommand{\labelitemi}{\small$\bigvarstar$}
+%\renewcommand{\OK}{\raisebox{-1.0pt}{\LARGE$\filledstar$}}
+%\renewcommand{\NOK}{\raisebox{-1.0pt}{\LARGE$\smallstar$}}
+
+% Add new commands here below
+
+\newcommand{\FrEnglish}[1]{#1}
+\newcommand{\French}[1]{\textit{#1}}
+\newcommand{\English}[1]{#1}
+\newcommand{\Italian}[1]{\textit{#1}}
+
+\newcommand{\Matlab}{\textsc{Matlab}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% INPUT
+
+% Personal information
+
+\name{Ruggero}{Fabbiano} % required
+\titles{PhD in Control Systems} % required
+\qualification{project/data engineer} % optional
+
+% \address{address}{country}
+% prints the country name or, if it exists with the same name, country flag
+\address{\FrEnglish{Puteaux} (92)}{France} % optional
+
+% \nationality[country]{nationality}
+% prints the country name and, if provided, the flag instead of the icon
+\nationality[Italy]{Italian} % optional
+
+\license{B (European)} % optional
+\phone{+33\enspace7\enspace60.18.73.39} % optional
+\eMail{ruggero\_fabbiano@outlook.com} % optional
+\LinkedIn{RuggeroFabbiano} % optional (creates full link from profile name)
+\GitHub{RuggeroFabbiano} % optional (creates full link from profile name)
+
+% Work experience
+
+% \experience{Company}{Location}{Country}{role}{subject}{period}
+% it searches for a country flage image named "Country", if it doesn't exist
+% just prints the "Country" name
+\experience{Inria}{\FrEnglish{Montbonnot Saint Martin} (38)}{France}
+  {Researcher}{Distributed nonlinear control}{December 2011 -- May 2015}
+
+% \resume{experience description}
+\resume{\begin{itemize}
+  \item Development of control algorithms to deploy a fleet of autonomous robots with no position information towards the source of an emitting process whose position is unknown ("source-seeking control")
+  \item Mathematical/physical modelling of an emission process with finite-element methods, formalisation and solution of a distributed optimisation problem, design of distributed nonlinear control laws
+  \item Formal proof of the controlled system properties and implementation of a prototype test robot
+  \item Speaker at international research conferences and master internship supervision
+  %\item Tools: \Matlab\listSep\FrEnglish{Simulink}\listSep \English{FreeFem++}\listSep\LaTeX
+\end{itemize}}
+
+\experience{Bertrandt}{\French{Vélizy-Villacoublay} (78)}{France}
+  {Design engineer}{Hybrid vehicle controller}{September 2015 -- March 2018}
+\resume{\begin{itemize}
+  \item Model-based design of control strategies for the automatic gearbox of Renault hybrid vehicles
+  \item Analysis of client requirements and formalisation of functional requirements
+  \item Unitary validation of the new features, precalibration and documentation of the degraded modes
+  \item Draft of technical documents
+  %\item Tools: \Matlab\listSep\FrEnglish{Simulink}
+\end{itemize}}
+
+\experience{Bertrandt}{\French{Vélizy-Villacoublay} (78)}{France}
+  {Technical coordinator}{Hybrid vehicle controller}
+  {February 2018 -- February 2019}
+\resume{\begin{itemize}
+  \item Design and implementation of complex use-cases to test and validate the whole drivetrain controller of Renault hybrid vehicles
+  \item Fully autonomous analysis of the produced results and technical reporting to the Renault unit chief, detection of anomalies in the controller code and dispatch/coordination of the corrections
+  \item Functional management: manage prioritisation and arrange task assignment on the perimeter, participate in the validation of candidates and in annual reviews
+  %\item Tools: \Matlab\listSep\FrEnglish{Simulink}
+\end{itemize}}
+
+\experience{Bertrandt}{\French{Vélizy-Villacoublay} (78)}{France}
+  {Team coordinator}{ADAS (AEB)}{January 2019 -- present}
+\resume{\begin{itemize}
+  \item Technical coordination of the AEB team with Scrum Agile method
+  \item Analysis and modelling of vehicle dynamics, and design of prediction strategies for autonomous braking (patent request ongoing) and control algorithms for the Renault ADAS controller
+  \item Realisation of automated tests for the CI pipeline
+  \item Backlog definition and task priorisation (sprint planning), backlog refinement, and realisation of "demos" to contractors
+  \item Implementation of the transition from a V-cycle to a test-driven development (TDD)
+  %\item Tools: \Matlab\listSep\FrEnglish{Simulink}\listSep HTML\listSep CSS\listSep XML\listSep \English{Git}\listSep \FrEnglish{Jira}
+\end{itemize}}
+
+\experience{\English{On-off Science}}{}{}
+  {Data engineer/scientist}{Traffic data and prediction}
+  {September 2020 -- present}
+\resume{\begin{itemize}
+  \item Generation of sets of traffic data via numerical simulation
+  \item Generation of the corresponding database in PostGreSQL
+  \item Server-side implementation of the simulation-database pipeline
+  \item Data analysis and machine learning algorithms on the generated data
+  %\item Tools: \FrEnglish{Python}\listSep PostGreSQL\listSep \English{Machine Learning}\listSep \English{Shell}\listSep \FrEnglish{Linux}\listSep\English{Docker}
+\end{itemize}}
+
+% Education
+% \diploma{Degree}{Major}{University}{Country}{year}
+
+\diploma{PhD}{Control Systems}{INP Grenoble}{France}{2015}
+
+\diploma{M. Eng.}{Computer Science}{\Italian{Università degli Studi di Pavia}}{Italy}{2011}
+
+\diploma{B. Eng.}{Computer Science}
+  {\Italian{Università degli Studi di Pavia}}{Italy}{2008}
+
+% Skills
+% \skill{Group}{Skill}{level}
+% "Group" is a sub-title for given skills; it is only printed once at the top
+% when it is the same, it can be omitted after the first declaration
+
+\skill[Python]{Coding languages}{\FrEnglish{Python}}{3}
+\skill[Matlab]{}{\Matlab}{5}
+\skill[HTML]{}{HTML}{3}
+\skill[CSS]{}{CSS}{3}
+\skill[JavaScript]{}{\FrEnglish{JavaScript}}{2}
+\skill[Bash]{}{\English{Bash}}{2}
+\skill[SQL]{}{SQL}{2}
+\skill[LaTeX]{}{\FrEnglish{\LaTeX}}{4}
+
+\skill[Bootstrap]{Front-end frameworks}{\English{Bootstrap}}{3}
+\skill[jQUery]{}{\English{jQuery}}{2}
+\skill[VueJS]{}{\FrEnglish{Vue JS}}{3}
+
+\skill[Django]{Back-end frameworks}{\FrEnglish{Django}}{3}
+\skill[DjangoReST]{}{\English{Django ReST}}{3}
+
+\skill[Docker]{Tools}{\English{Docker}}{1}
+\skill[Travis]{}{Travis CI}{3}
+\skill[Git]{}{\English{Git}}{3}
+\skill[Jira]{}{\FrEnglish{Jira}}{3}
+
+\skill{Science}{Control systems}{4}
+\skill{}{\English{Machine learning}}{4}
+
+\skill[Simulink]{Industry}{\English{Simulink}}{5}
+\skill{}{Agile}{3}
+
+% Languages
+% \newLanguage[base]{Language}{Country}{score}
+% plots a bar coloured until score-% of base (equal to 100 if omitted)
+% country is used to show the flag if present
+
+\newLanguage[10]{Italian}{Italia}{10}
+\newLanguage[10]{French}{Francia}{7}
+\newLanguage[10]{English}{UK}{8}
+
+% Courses and certifications
+% \course[Logo][Course provider]{Title}
+% if provided prints logo, then course title followed by course provider between
+% parentheses
+
+\course{European first aid patent}{CRI}
+\course[IGSC]{\English{Hybrid Dynamical Systems: Stability and Control}}{UCSB3}
+\course[IGSC]{\English{Distributed Systems}}{Yale}
+\course{\French{Process Comm.}}{}
+\course{\French{Gestion des Conflits}}{}
+\course{\English{Simulink for MBD}}{MathWorks}
+\course[Udemy]{\English{Python for Data Science and Machine Learning}}{Pierian}
+\course[Udemy]{\English{Python and Django Full-Stack Web Development}}{Pierian}
+\course[Udemy]{\English{Django Rest framework} \Italian{e} \FrEnglish{Vue JS}}
+  {ProgrammareInPython}
+\course[Udemy]{\English{Back-end ReST API with Python and Django}}{LondonAppDev}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\makeCV
