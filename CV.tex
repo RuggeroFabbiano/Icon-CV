@@ -1,66 +1,69 @@
 % !TEX encoding = UTF-8 Unicode
 
 % Ruggero Fabbiano
-% Content template for IconCV package
-% 20/11/2020
+% Example template for Icon-CV package
+% 30/10/2022
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% PACKAGES
-
 \documentclass[a4paper]{article}
-\usepackage[demo]{logocv}
+\usepackage{icon-cv} % options: blackwhite, greyscale
 
-% Font and other custom packages
-\usepackage[sfdefault]{arimo}
+% FONT
+
+\usepackage{tgadventor} % Gyre Adventor, a font from the LaTeX font catalogue
+\renewcommand*\familydefault{\sfdefault}
 \usepackage[T1]{fontenc}
-\usepackage{scrextend}
-\changefontsizes{9}
+
+% Use this to set font size outside 10-12 pt.
+% \usepackage{scrextend}
+% \changefontsizes{9}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % CUSTOM (RE)DEFINITIONS
 
-% Set image folder
-%\renewcommand\imageFolder{LogoCV}
+% Set your image folder
+% \renewcommand\imageFolder{IconCV}
 
-% Adapt column width (the argument is the width percentage taken by left column)
-%\columnratio{0.75}
+% Adapt column width (the argument value is the width percentage taken by leftmost column)
+% \columnratio{0.75}
+
+% Based on your font size, you may have to tweak the spacing between Education title and its rule
+% \setlength{\EducationRuleSep}{3pt}
 
 % Colours (DVI PS names directly available)
-%\colorlet{headerColour}{pink}
-%\colorlet{nameColour}{white}
-%\colorlet{linkColour}{Bittersweet}
-%\colorlet{titleColour}{black}
-%\colorlet{ruleColour}{pink}
-%\colorlet{timeLineColour}{gray}
-%\colorlet{jobColour}{Aquamarine}
-%\colorlet{skillColour}{Apricot}
-%\colorlet{languageColour}{Apricot}
+% \colorlet{headerColour}{pink}
+% \colorlet{nameColour}{Blue}
+% \colorlet{linkColour}{Aquamarine}
+% \colorlet{titleColour}{black}
+% \colorlet{ruleColour}{black}
+% \colorlet{timeLineColour}{gray}
+% \colorlet{jobColour}{Blue}
+% \colorlet{skillColour}{pink}
+% \colorlet{languageColour}{pink}
 
 % Titles
-%\renewcommand{\Experiences}{Work Experience}
-%\renewcommand{\Education}{Education}
-%\renewcommand{\Skills}{Skills}
-%\renewcommand{\Languages}{Languages}
-%\renewcommand{\Courses}{Courses and Certifications}
+% \renewcommand{\Experiences}{Work Experience}
+% \renewcommand{\Education}{Education}
+% \renewcommand{\Skills}{Skills}
+% \renewcommand{\Languages}{Languages}
+% \renewcommand{\Courses}{Courses and Certifications}
 
 % Bullets (MathABX/FontAwesome symbols available)
-%\renewcommand{\jobSep}{} % default: $\bigstar$
-%\renewcommand{\diplomaSep}{$\bigstar$}
-%\renewcommand{\courseSep}{$\bigstar$}
-%\renewcommand{\labelitemi}{\small$\bigvarstar$}
-%\renewcommand{\OK}{\raisebox{-1.0pt}{\LARGE$\filledstar$}}
-%\renewcommand{\NOK}{\raisebox{-1.0pt}{\LARGE$\smallstar$}}
+% \renewcommand{\jobSep}{{\small$\bigvarstar$}}
+% \renewcommand{\labelitemi}{\small$\bigvarstar$}
+% \renewcommand{\diplomaSep}{{\small$\bigvarstar$}}
+% \renewcommand{\courseSep}{{\small$\bigvarstar$}}
 
-% Add new commands here below
+% The following commands define the symbols used to show reached levels (filled vs. empty star)
+% \renewcommand{\OK}{\raisebox{-1.0pt}{\LARGE$\filledstar$}} % symbol for reached levels
+% \renewcommand{\NOK}{\raisebox{-1.0pt}{\LARGE$\smallstar$}} % symbol for unreached levels
 
-\newcommand{\FrEnglish}[1]{#1}
-\newcommand{\French}[1]{\textit{#1}}
-\newcommand{\English}[1]{#1}
-\newcommand{\Italian}[1]{\textit{#1}}
+% Add any other new command here
+% \newcommand{\myCommand}[1]{#1}
 
-\newcommand{\Matlab}{\textsc{Matlab}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -68,151 +71,78 @@
 
 % Personal information
 
-\name{Ruggero}{Fabbiano} % required
-\titles{PhD in Control Systems} % required
-\qualification{project/data engineer} % optional
+\name{First name}{Last name} % required
+\titles{all your titles go here} % required
+\qualification{your last role / desired position etc.} % optional
 
-% \address{address}{country}
-% prints the country name or, if it exists with the same name, country flag
-\address{\FrEnglish{Puteaux} (92)}{France} % optional
+\address{address}{Country} % optional
+% if a country-flag file named as the Country argument exists in image folder, print it instead of
+% country name
 
-% \nationality[country]{nationality}
-% prints the country name and, if provided, the flag instead of the icon
-\nationality[Italy]{Italian} % optional
+\nationality[UK]{nationality} % optional
+% the optional argument is the name of the nationality country-flag file that, if provided, will
+% replace the nationality icon
 
-\license{B (European)} % optional
-\phone{+33\enspace7\enspace60.18.73.39} % optional
-\eMail{ruggero\_fabbiano@outlook.com} % optional
-\LinkedIn{RuggeroFabbiano} % optional (creates full link from profile name)
-\GitHub{RuggeroFabbiano} % optional (creates full link from profile name)
+\license{driving licenses} % optional
+\phone{telephone number} % optional
+\eMail{e-mail address} % optional
+\LinkedIn{LinkedIn alias} % optional (creates full link from profile name)
+\GitHub{GitHub alias} % optional (creates full link from profile name)
+
 
 % Work experience
+% list your experiences in chronological order here, they will be printed starting from the last one
 
-% \experience{Company}{Location}{Country}{role}{subject}{period}
-% it searches for a country flage image named "Country", if it doesn't exist
-% just prints the "Country" name
-\experience{Inria}{\FrEnglish{Montbonnot Saint Martin} (38)}{France}
-  {Researcher}{Distributed nonlinear control}{December 2011 -- May 2015}
+\experience{Company}{location}{Country}{role}{Subject}{period}
+% if a file named as the Company argument exists in image folder, prints it instead of company name
+% if a country-flag file named as the Country argument exists in image folder, prints it instead of
+% country name
 
-% \resume{experience description}
-\resume{\begin{itemize}
-  \item Development of control algorithms to deploy a fleet of autonomous robots with no position information towards the source of an emitting process whose position is unknown ("source-seeking control")
-  \item Mathematical/physical modelling of an emission process with finite-element methods, formalisation and solution of a distributed optimisation problem, design of distributed nonlinear control laws
-  \item Formal proof of the controlled system properties and implementation of a prototype test robot
-  \item Speaker at international research conferences and master internship supervision
-  %\item Tools: \Matlab\listSep\FrEnglish{Simulink}\listSep \English{FreeFem++}\listSep\LaTeX
-\end{itemize}}
+\resume{%\\
+    This can be an exhaustive work-experience description; you can also use bulleted lists and
+    other environments here inside.    
+    For an optimal paragraph spacing the initial new line is not set, so if you start with a simple
+    paragraph and are not using an environment (\textit{e.g.}, \texttt{itemize}), you may have to
+    add a new line first, as the comment you see at the beginning of this \texttt{resume}.
+}
 
-\experience{Bertrandt}{\French{Vélizy-Villacoublay} (78)}{France}
-  {Design engineer}{Hybrid vehicle controller}{September 2015 -- March 2018}
-\resume{\begin{itemize}
-  \item Model-based design of control strategies for the automatic gearbox of Renault hybrid vehicles
-  \item Analysis of client requirements and formalisation of functional requirements
-  \item Unitary validation of the new features, precalibration and documentation of the degraded modes
-  \item Draft of technical documents
-  %\item Tools: \Matlab\listSep\FrEnglish{Simulink}
-\end{itemize}}
+% You can repeat the experience-resume commands as much as you need
 
-\experience{Bertrandt}{\French{Vélizy-Villacoublay} (78)}{France}
-  {Technical coordinator}{Hybrid vehicle controller}
-  {February 2018 -- February 2019}
-\resume{\begin{itemize}
-  \item Design and implementation of complex use-cases to test and validate the whole drivetrain controller of Renault hybrid vehicles
-  \item Fully autonomous analysis of the produced results and technical reporting to the Renault unit chief, detection of anomalies in the controller code and dispatch/coordination of the corrections
-  \item Functional management: manage prioritisation and arrange task assignment on the perimeter, participate in the validation of candidates and in annual reviews
-  %\item Tools: \Matlab\listSep\FrEnglish{Simulink}
-\end{itemize}}
-
-\experience{Bertrandt}{\French{Vélizy-Villacoublay} (78)}{France}
-  {Team coordinator}{ADAS (AEB)}{January 2019 -- present}
-\resume{\begin{itemize}
-  \item Technical coordination of the AEB team with Scrum Agile method
-  \item Analysis and modelling of vehicle dynamics, and design of prediction strategies for autonomous braking (patent request ongoing) and control algorithms for the Renault ADAS controller
-  \item Realisation of automated tests for the CI pipeline
-  \item Backlog definition and task priorisation (sprint planning), backlog refinement, and realisation of "demos" to contractors
-  \item Implementation of the transition from a V-cycle to a test-driven development (TDD)
-  %\item Tools: \Matlab\listSep\FrEnglish{Simulink}\listSep HTML\listSep CSS\listSep XML\listSep \English{Git}\listSep \FrEnglish{Jira}
-\end{itemize}}
-
-\experience{\English{On-off Science}}{}{}
-  {Data engineer/scientist}{Traffic data and prediction}
-  {September 2020 -- present}
-\resume{\begin{itemize}
-  \item Generation of sets of traffic data via numerical simulation
-  \item Generation of the corresponding database in PostGreSQL
-  \item Server-side implementation of the simulation-database pipeline
-  \item Data analysis and machine learning algorithms on the generated data
-  %\item Tools: \FrEnglish{Python}\listSep PostGreSQL\listSep \English{Machine Learning}\listSep \English{Shell}\listSep \FrEnglish{Linux}\listSep\English{Docker}
-\end{itemize}}
 
 % Education
-% \diploma{Degree}{Major}{University}{Country}{year}
 
-\diploma{PhD}{Control Systems}{INP Grenoble}{France}{2015}
+\diploma{Degree}{Major}{University}{Country}{year}
+% if a country-flag file named as the Country argument exists in image folder, prints it instead of
+% country name
 
-\diploma{M. Eng.}{Computer Science}{\Italian{Università degli Studi di Pavia}}{Italy}{2011}
-
-\diploma{B. Eng.}{Computer Science}
-  {\Italian{Università degli Studi di Pavia}}{Italy}{2008}
 
 % Skills
-% \skill{Group}{Skill}{level}
-% "Group" is a sub-title for given skills; it is only printed once at the top
-% when it is the same, it can be omitted after the first declaration
 
-\skill[Python]{Coding languages}{\FrEnglish{Python}}{3}
-\skill[Matlab]{}{\Matlab}{5}
-\skill[HTML]{}{HTML}{3}
-\skill[CSS]{}{CSS}{3}
-\skill[JavaScript]{}{\FrEnglish{JavaScript}}{2}
-\skill[Bash]{}{\English{Bash}}{2}
-\skill[SQL]{}{SQL}{2}
-\skill[LaTeX]{}{\FrEnglish{\LaTeX}}{4}
+\skill[LaTeX]{Group 1}{Skill 1}{1} % the optional argument prints a related logo (must be present)
+% "Group" is a sub-title for a set of related skills; it is only printed once at the top
+% it can be omitted after the first declaration
+% the last argument is a number from 1 to 5, indicating the level of mastering of such skill 
+\skill{Group 2}{Skill 2}{2} 
+\skill[Git]{}{Skill 3}{3}
+\skill{Group 3}{Skill 4}{4}
 
-\skill[Bootstrap]{Front-end frameworks}{\English{Bootstrap}}{3}
-\skill[jQUery]{}{\English{jQuery}}{2}
-\skill[VueJS]{}{\FrEnglish{Vue JS}}{3}
-
-\skill[Django]{Back-end frameworks}{\FrEnglish{Django}}{3}
-\skill[DjangoReST]{}{\English{Django ReST}}{3}
-
-\skill[Docker]{Tools}{\English{Docker}}{1}
-\skill[Travis]{}{Travis CI}{3}
-\skill[Git]{}{\English{Git}}{3}
-\skill[Jira]{}{\FrEnglish{Jira}}{3}
-
-\skill{Science}{Control systems}{4}
-\skill{}{\English{Machine learning}}{4}
-
-\skill[Simulink]{Industry}{\English{Simulink}}{5}
-\skill{}{Agile}{3}
 
 % Languages
-% \newLanguage[base]{Language}{Country}{score}
-% plots a bar coloured until score-% of base (equal to 100 if omitted)
-% country is used to show the flag if present
 
-\newLanguage[10]{Italian}{Italia}{10}
-\newLanguage[10]{French}{Francia}{7}
-\newLanguage[10]{English}{UK}{8}
+\newLanguage[10]{Language}{5} % optional argument indicates total length of level bar (default: 100)
+\newLanguage{UK}{50}
+% if a flag filge called as Language argument exists, it is printed instead of Language name
+% last argument is the level value
+
 
 % Courses and certifications
-% \course[Logo][Course provider]{Title}
-% if provided prints logo, then course title followed by course provider between
-% parentheses
 
-\course{European first aid patent}{CRI}
-\course[IGSC]{\English{Hybrid Dynamical Systems: Stability and Control}}{UCSB3}
-\course[IGSC]{\English{Distributed Systems}}{Yale}
-\course{\French{Process Comm.}}{}
-\course{\French{Gestion des Conflits}}{}
-\course{\English{Simulink for MBD}}{MathWorks}
-\course[Udemy]{\English{Python for Data Science and Machine Learning}}{Pierian}
-\course[Udemy]{\English{Python and Django Full-Stack Web Development}}{Pierian}
-\course[Udemy]{\English{Django Rest framework} \Italian{e} \FrEnglish{Vue JS}}
-  {ProgrammareInPython}
-\course[Udemy]{\English{Back-end ReST API with Python and Django}}{LondonAppDev}
+\course[LaTeX]{Title}{\LaTeX school} % optional argument provides a logo for the course provider
+% the last argument is the full name of the course provider; it can also be an extended logo with
+% the full name of the institution (that must be in the image folder), or a plain name
+\course[LaTex]{Another LaTeX class}{LaTeX_project}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\makeCV
+\makeCV % print the CV!
